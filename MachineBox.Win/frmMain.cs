@@ -52,9 +52,13 @@ namespace MachineBox.Win
             {
                 Print("Server is starting..");
 
-                NancySelfHost.Start(int.Parse(ConfigurationManager.AppSettings["port"]));
+                var port = int.Parse(ConfigurationManager.AppSettings["port"]);
 
-                Print("Server started successfully");
+                NancySelfHost.Start(port);
+
+                Print($"Server started successfully");
+
+                Print($"Listening on http://localhost:{port}");
 
                 return true;
             }
@@ -74,7 +78,7 @@ namespace MachineBox.Win
         {
             try
             {
-                Print("Hooking...");
+                Print("Hooking keyboard...");
 
                 USBHIDGlobal.KeyboardHook.KeyDown += (sender, e) =>
                 {

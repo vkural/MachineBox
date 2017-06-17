@@ -45,7 +45,7 @@ namespace MachineBox.Win
             this.groupBox2.Location = new System.Drawing.Point(8, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 0, 6, 6);
-            this.groupBox2.Size = new System.Drawing.Size(330, 191);
+            this.groupBox2.Size = new System.Drawing.Size(361, 191);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             // 
@@ -57,7 +57,7 @@ namespace MachineBox.Win
             this.txtSummary.Name = "txtSummary";
             this.txtSummary.ReadOnly = true;
             this.txtSummary.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.txtSummary.Size = new System.Drawing.Size(318, 171);
+            this.txtSummary.Size = new System.Drawing.Size(349, 171);
             this.txtSummary.TabIndex = 1;
             this.txtSummary.Text = "";
             // 
@@ -70,7 +70,7 @@ namespace MachineBox.Win
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 199);
+            this.ClientSize = new System.Drawing.Size(377, 199);
             this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
