@@ -1,6 +1,7 @@
 ﻿using MachineBox.Core.CardReaders;
 using MachineBox.Core.Enums;
 using MachineBox.Core.Models;
+using MachineBox.SelfHost.Abstractions;
 using Nancy;
 using System;
 using System.Linq;
@@ -8,13 +9,13 @@ using System.Net.NetworkInformation;
 
 namespace MachineBox.SelfHost.Modules
 {
-    public class MachineModule : NancyModule
+    public class MachineModule : BaseModule
     {
-        public MachineModule()
+        public MachineModule() : base("/api/machine/info")
         {
             Get["/api/machine/info"] = parameters =>
             {
-                var result = new ApiResponse<InformationModel> { Status = (int)DeviceStatus.SUCCESS };
+                var result = new ApiResponse<InformationModel> { Status = (int)ResponseStatuses.SUCCESS };
 
                 try
                 {
@@ -37,11 +38,11 @@ namespace MachineBox.SelfHost.Modules
                 }
                 catch (Exception e)
                 {
-                    result.Status = (int)DeviceStatus.FAILURE;
+                    result.Status = (int)ResponseStatuses.FAILURE;
                     result.Message = e.Message;
                 }
 
-                return Response.AsJson(result);
+                return Response.AsJson(result).WithHeader("Access-Control-Allow-Origin", "*");
             };
         }
     }

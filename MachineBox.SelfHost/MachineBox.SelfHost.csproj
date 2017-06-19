@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\BaseModule.cs" />
     <Compile Include="Modules\USBHIDModule.cs" />
     <Compile Include="Modules\MachineModule.cs" />
     <Compile Include="Modules\CRT602UModule.cs" />

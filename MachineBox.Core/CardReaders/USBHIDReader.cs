@@ -13,32 +13,23 @@ namespace MachineBox.Core.CardReaders
     {
         public CardReaderResponse Read()
         {
-            var response = new CardReaderResponse { Status = DeviceStatus.FAILURE };
+            var response = new CardReaderResponse { Status = ResponseStatuses.FAILURE };
             var start    = DateTime.Now;
 
-            try
-            {
-                USBHIDGlobal.Text = string.Empty;
-                USBHIDGlobal.Wait = false;
-            }
-            catch(Exception e)
-            {
-                response.X = e.ToString();
-                return response;
-            }
-
+            USBHIDGlobal.Text = string.Empty;
+            USBHIDGlobal.Wait = false;
 
             while (true)
             {
                 if ((DateTime.Now - start).TotalSeconds >= int.Parse(ConfigurationManager.AppSettings["readTimeout"]))
                 {
-                    response.Status = DeviceStatus.TIMEOUT_EXPIRED;
+                    response.Status = ResponseStatuses.TIMEOUT_EXPIRED;
                     break;
                 }
 
                 if (USBHIDGlobal.Wait)
                 {
-                    response.Status = DeviceStatus.SUCCESS;
+                    response.Status = ResponseStatuses.SUCCESS;
                     response.Data   = USBHIDGlobal.Text;
                     break;
                 }

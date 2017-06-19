@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="CardReaders\CRT602UReader.cs" />
     <Compile Include="CardReaders\USBHIDReader.cs" />
-    <Compile Include="Enums\DeviceStatus.cs" />
+    <Compile Include="Enums\ResponseStatuses.cs" />
     <Compile Include="Globals\USBHIDGlobal.cs" />
     <Compile Include="Hooks\GlobalKeyboardHook.cs" />
     <Compile Include="Models\ApiResponse.cs" />

@@ -43,14 +43,42 @@ namespace MachineBox.Core.CardReaders
         /// <summary>
         /// 
         /// </summary>
+        public CardReaderResponse IsConnected()
+        {
+            var response = new CardReaderResponse { Status = ResponseStatuses.FAILURE };
+
+            int handCom = default(int);
+
+            try
+            {
+                handCom = CommOpen();
+
+                response.Status = handCom != 0 ? ResponseStatuses.SUCCESS : ResponseStatuses.FAILURE;
+            }
+            catch
+            {
+                response.Status = ResponseStatuses.FAILURE;
+            }
+            finally
+            {
+                CommClose(_handCom);
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public CardReaderResponse Read()
         {
-            var response = new CardReaderResponse { Status = DeviceStatus.FAILURE };
+            var response = new CardReaderResponse { Status = ResponseStatuses.FAILURE };
 
             try
             {
                 if ((_handCom = (UInt32)CommOpen()) != 0)
+                {
                     if (GetDeviceCapabilities(_handCom, ref _inputReportByteLength, ref _outputReportByteLength) == 0)
                     {
                         DateTime start = DateTime.Now;
@@ -59,7 +87,7 @@ namespace MachineBox.Core.CardReaders
                         {
                             if ((DateTime.Now - start).TotalSeconds >= int.Parse(ConfigurationManager.AppSettings["readTimeout"]))
                             {
-                                response.Status = DeviceStatus.TIMEOUT_EXPIRED;
+                                response.Status = ResponseStatuses.TIMEOUT_EXPIRED;
                                 break;
                             }
 
@@ -78,7 +106,7 @@ namespace MachineBox.Core.CardReaders
                                        
                                     CRT602U_BeepOff(_handCom);
 
-                                    response.Status = DeviceStatus.SUCCESS;
+                                    response.Status = ResponseStatuses.SUCCESS;
                                     response.Data = strBuf;
 
                                     break;
@@ -86,12 +114,15 @@ namespace MachineBox.Core.CardReaders
                             }
                         }
                     }
+                    else
+                        response.Status = ResponseStatuses.FAILURE;
+                }
                 else
-                    response.Status = DeviceStatus.DEVICE_NOT_FOUND;
+                    response.Status = ResponseStatuses.DEVICE_NOT_FOUND;
             }
             catch
             {
-                response.Status = DeviceStatus.FAILURE;
+                response.Status = ResponseStatuses.FAILURE;
             }
             finally
             {
@@ -102,7 +133,7 @@ namespace MachineBox.Core.CardReaders
                 }
                 catch
                 {
-                    response.Status = DeviceStatus.FAILURE;
+                    response.Status = ResponseStatuses.FAILURE;
                 }
             }
 

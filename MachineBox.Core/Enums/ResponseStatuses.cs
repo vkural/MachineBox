@@ -1,6 +1,6 @@
 ﻿namespace MachineBox.Core.Enums
 {
-    public enum DeviceStatus
+    public enum ResponseStatuses
     {
         DEVICE_NOT_FOUND = 0,
         SUCCESS          = 1,
