@@ -23,6 +23,8 @@ namespace MachineBox.Win
 
             TurnOnAutoUpdate();
 
+            AddShortcut();
+
             Text = $"MachineBox v{GetRunningVersion().ToString()}";
         }
 
@@ -104,11 +106,41 @@ namespace MachineBox.Win
         /// <summary>
         /// 
         /// </summary>
-        public void TurnOnAutoUpdate()
+        private void TurnOnAutoUpdate()
         {
             Print("Auto-update turned on");
 
             tmrUpdate.Enabled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void AddShortcut()
+        {
+            try
+            {
+                var path = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\kiosk.bat";
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var tw = new StreamWriter(path, false))
+                {
+                    tw.WriteLine("start chrome --kiosk http://localhost:4000");
+
+                    tw.Close();
+                }
+
+                Print("Shortcut added successfully");
+            }
+            catch (Exception e)
+            {
+                Print(e.Message);
+            }
+
         }
 
         /// <summary>
@@ -161,5 +193,7 @@ namespace MachineBox.Win
                 }
             }
         }
+
+
     }
 }
