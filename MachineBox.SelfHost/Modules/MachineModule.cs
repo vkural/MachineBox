@@ -35,6 +35,9 @@ namespace MachineBox.SelfHost.Modules
                         MacAddress  = activeNI?.GetPhysicalAddress().ToString() ?? string.Empty,
                         IpAddress   = activeNI?.GetIPProperties   ().UnicastAddresses.Where(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).SingleOrDefault()?.Address.ToString() ?? string.Empty ?? string.Empty
                     };
+
+                    result.Data.MacAddress = "00:F1:F3:10:15:07";
+                    result.Data.DomainName = "TEST001";
                 }
                 catch (Exception e)
                 {
