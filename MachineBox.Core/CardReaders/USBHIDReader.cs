@@ -11,13 +11,15 @@ namespace MachineBox.Core.CardReaders
 {
     public class USBHIDReader
     {
-        public CardReaderResponse Read()
+        public CardReaderResponse Read(bool bypassCompabilityMode = false)
         {
             var response = new CardReaderResponse { Status = ResponseStatuses.FAILURE };
             var start    = DateTime.Now;
 
-            USBHIDGlobal.Text = string.Empty;
-            USBHIDGlobal.Wait = false;
+            USBHIDGlobal.Text                  = string.Empty;
+            USBHIDGlobal.BypassCompabilityMode = bypassCompabilityMode;
+            USBHIDGlobal.Wait                  = false;
+            
 
             while (true)
             {
@@ -35,7 +37,8 @@ namespace MachineBox.Core.CardReaders
                 }
             }
 
-            USBHIDGlobal.Wait = true;
+            USBHIDGlobal.Wait                  = true;
+            USBHIDGlobal.BypassCompabilityMode = bypassCompabilityMode;
 
             return response;
         }

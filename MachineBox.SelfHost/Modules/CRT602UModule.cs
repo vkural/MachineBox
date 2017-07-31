@@ -11,8 +11,6 @@ namespace MachineBox.SelfHost.Modules
     {
         public CRT602UModule() : base("/api/crt602u/read", "/api/crt602u/check")
         {
-            
-
             Get["/api/crt602u/read"] = parameters =>
             {
                 var response = new CRT602UReader().Read();

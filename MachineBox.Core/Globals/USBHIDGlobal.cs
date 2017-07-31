@@ -4,10 +4,11 @@ namespace MachineBox.Core.Globals
 {
     public class USBHIDGlobal
     {
-        private static object _lock = new object();
-        private static string _text = string.Empty;
-        private static bool   _wait = true;
-        
+        private static object _lock                  = new object();
+        private static string _text                  = string.Empty;
+        private static bool   _wait                  = true;
+        private static bool   _bypassCompabilityMode = true;
+
         public static readonly GlobalKeyboardHook KeyboardHook = new GlobalKeyboardHook();
         public static readonly int                END_CHAR     = 13;
 
@@ -21,6 +22,12 @@ namespace MachineBox.Core.Globals
         {
             get { lock (_lock) return _wait;  }
             set { lock (_lock) _wait = value; }
+        }
+
+        public static bool BypassCompabilityMode
+        {
+            get { lock (_lock) return _bypassCompabilityMode;  }
+            set { lock (_lock) _bypassCompabilityMode = value; }
         }
     }
 }
